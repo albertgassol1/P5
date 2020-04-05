@@ -1,5 +1,6 @@
 #include <iostream>
 #include "instrument_dumb.h"
+#include "seno.h"
 
 /*
   For each new instrument:
