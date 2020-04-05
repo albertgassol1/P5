@@ -58,11 +58,11 @@ Hemos generado cuatro instrumentos: uno genérico, dos percusivos y uno plano.
 
 ##### Percusivo 2
 
-<img src="img/percusivo2.png" width = "200" align="center">
+<img src="img/percusivo2.png" width = "605" align="center">
 
 ##### Plano
 
-<img src="img/plano.png" width = "200" align="center">
+<img src="img/plano.png" width = "747" align="center">
 
 
 ### Instrumentos Dumb y Seno.
