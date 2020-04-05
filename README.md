@@ -46,7 +46,7 @@ Para los cuatro casos, deberá incluir una gráfica en la que se visualice clara
 añadir la información necesaria para su correcta interpretación, aunque esa información puede reducirse a
 colocar etiquetas y títulos adecuados en la propia gráfica (se valorará positivamente esta alternativa).
 
-Hemos generado cuatro instrumentos, uno aleatorio, dos percusivos y uno plano. 
+Hemos generado cuatro instrumentos: uno genérico, dos percusivos y uno plano. 
 
 ##### Genérico
 
