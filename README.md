@@ -54,7 +54,7 @@ Hemos generado cuatro instrumentos: uno genérico, dos percusivos y uno plano.
 
 ##### Percusivo 1
 
-<img src="img/percusivo1.png" width = "400" align="center">
+<img src="img/percusivo1.png" width = "600" align="center">
 
 ##### Percusivo 2
 
