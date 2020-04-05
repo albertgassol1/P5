@@ -10,7 +10,7 @@ def midi2sco(ficMIDI, ficScore, beats_per_minute=120, ticks_per_beat=144):
         midi = run(['midi2skini', ficMIDI], stdout=PIPE, check=True)
         mensajes = midi.stdout.decode('utf-8').split('\n')
     except MidiFileError as e:
-        print(f"Error al abrir el fichero {ficMIDI} ({os.strerror(e.returncode)})")
+        print("Error al abrir el fichero {ficMIDI} ({os.strerror(e.returncode)})")
         exit(1)
 
     reTempo = re.compile('tempo:\s*(?P<tempo>\d+)')
@@ -22,14 +22,14 @@ def midi2sco(ficMIDI, ficScore, beats_per_minute=120, ticks_per_beat=144):
                 beats_per_minute = int(tempo)
             else:
                 if beats_per_minute != int(tempo):
-                    print(f'ATENCIÓN: encontrado tempo={tempo}, pero usando bpm={beats_per_minute}\n')
+                    print('ATENCIÓN: encontrado tempo={tempo}, pero usando bpm={beats_per_minute}\n')
             break
     if beats_per_minute < 0:
         beats_per_minute = 120
-        print(f'ATENCIÓN: no se ha encontrado el tempo. Usando el valor por defecto bpm={beats_per_minute}\n')
+        print('ATENCIÓN: no se ha encontrado el tempo. Usando el valor por defecto bpm={beats_per_minute}\n')
 
-    print(f"Usando bpm={tempo} pulsos por minuto y tpb={ticks_per_beat:.0f} ticks por pulso. Se recomienda")
-    print(f"usar estos mismos valores al reproducir {ficScore} con el programa 'synth'.\n")
+    print("Usando bpm={tempo} pulsos por minuto y tpb={ticks_per_beat:.0f} ticks por pulso. Se recomienda")
+    print("usar estos mismos valores al reproducir {ficScore} con el programa 'synth'.\n")
 
 
     sOrden = '\s*(?P<Orden>NoteOn|NoteOff)'
@@ -45,7 +45,7 @@ def midi2sco(ficMIDI, ficScore, beats_per_minute=120, ticks_per_beat=144):
         for mensaje in mensajes:
             comando = reNota.match(mensaje)
             if not comando:
-                fpScore.write(f'# {mensaje}\n')
+                fpScore.write('# {mensaje}\n'.format(mensaje=mensaje))
                 continue
 
             orden = comando['Orden']
@@ -61,12 +61,17 @@ def midi2sco(ficMIDI, ficScore, beats_per_minute=120, ticks_per_beat=144):
             delta = ticks - last_ticks
             last_ticks = ticks
 
-            fpScore.write(f"{delta}\t{orden}\t{canal}\t{pitch}\t{velocidad}\n")
+            fpScore.write("{delta}\t{orden}\t{canal}\t{pitch}\t{velocidad}\n".format(
+                delta=delta,
+                orden=orden,
+                canal=canal,
+                pitch=pitch,
+                velocidad=velocidad))
         
-        print(f'El fichero {ficMIDI} incluye {len(instruments)} instrumento(s):')
+        print('El fichero {ficMIDI} incluye {len(instruments)} instrumento(s):')
         for instrument in sorted(instruments):
             print('\t', instrument)
-        print(f'Consulte el fichero {ficScore} para ver si proporciona información de los mismos.')
+        print('Consulte el fichero {ficScore} para ver si proporciona información de los mismos.')
 
 
 ########################################################################################################
