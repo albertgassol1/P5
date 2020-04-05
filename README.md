@@ -1,6 +1,10 @@
 PAV - P5: síntesis musical polifónica
 =====================================
 
+## Andrea Iturralde - Albert Gassol
+
+<img src="img/unnamed.jpg" width = "200" align="center">
+
 Obtenga su copia del repositorio de la práctica accediendo a [Práctica 5](https://github.com/albino-pav/P5) 
 y pulsando sobre el botón `Fork` situado en la esquina superior derecha. A continuación, siga las
 instrucciones de la [Práctica 2](https://github.com/albino-pav/P2) para crear una rama con el apellido de
@@ -41,6 +45,25 @@ permitan visualizar el funcionamiento de la curva ADSR.
 Para los cuatro casos, deberá incluir una gráfica en la que se visualice claramente la curva ADSR. Deberá
 añadir la información necesaria para su correcta interpretación, aunque esa información puede reducirse a
 colocar etiquetas y títulos adecuados en la propia gráfica (se valorará positivamente esta alternativa).
+
+Hemos generado cuatro instrumentos, uno aleatorio, dos percusivos y uno plano. 
+
+##### Genérico
+
+<img src="img/generico.jpg" width = "200" align="center">
+
+##### Percusivo 1
+
+<img src="img/percusivo1.jpg" width = "200" align="center">
+
+##### Percusivo 2
+
+<img src="img/percusivo2.jpg" width = "200" align="center">
+
+##### Plano
+
+<img src="img/plano.jpg" width = "200" align="center">
+
 
 ### Instrumentos Dumb y Seno.
 
