@@ -273,6 +273,45 @@ El metodo comand se puede ver en el código insertado anteriormente. No se ha mo
   el efecto, e indique, a continuación, la orden necesaria para generar los ficheros de audio usando el
   programa `synth`.
 
+Hemos generado un nuevo efecto, `distortion.cpp`, que se basa en la fijación de un umbral en la amplitud de la señal, a partir del cual los valores fuera del intervalo generado por el umbral se ajustan a dicho umbral, es decir, el equivalente a un hard clipping de valor 0'55. 
+
+```cpp
+#include <iostream>
+#include <math.h>
+#include "distortion.h"
+#include "keyvalue.h"
+
+#include <stdlib.h>
+
+using namespace upc;
+using namespace std;
+
+Distortion::Distortion(const std::string &param) {
+  KeyValue kv(param);
+
+  if (!kv.to_float("T", T))
+    T = 0.7; //default value
+}
+
+void Distortion::command(unsigned int comm) {}
+
+void Distortion::operator()(std::vector<float> &x){
+  for (unsigned int i = 0; i < x.size(); i++) {
+      if (x[i] > T){
+          x[i] = T;
+      }
+      else if (x[i] < -T){
+          x[i] = -T;
+      }
+  }
+}
+```
+
+El resultado obtendido es una distorsión que, a nivel auditivo, asemeja una vibración.
+
+ <work/ejemplos src="img/distortion.png" width = "1417" align="center">
+ <work/ejemplos src="img/distortionAmpliat.png" width = "1855" align="center">
+
 ### Síntesis FM.
 
 Construya un instrumento de síntesis FM, según las explicaciones contenidas en el enunciado y el artículo
