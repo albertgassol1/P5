@@ -84,7 +84,6 @@ void Seno::command(long cmd, long note, long vel) {
     cout<<nota<<", "<<step2/step1<<endl;
     phase = 0;
     index = 0;
-    resta = 0;
   }
   else if (cmd == 8) {	//'Key' released: sustain ends, release begins
     adsr.stop();
@@ -125,8 +124,6 @@ const vector<float> & Seno::synthesize() {
       x[i] = 0.8*(tbl[index1]*(alpha1) + tbl[index2]*(alpha2));
 
     }
-
-    resta++;
     phase += step2/step1;
     index = phase;
     cout<<x[i]<<","<<phase<<endl;

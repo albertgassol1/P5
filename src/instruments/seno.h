@@ -15,7 +15,6 @@ namespace upc {
     float nota;
     int N;
     unsigned int index;
-    unsigned int resta;
 	float A;
     std::vector<float> tbl;
   public:

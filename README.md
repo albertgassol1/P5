@@ -71,11 +71,185 @@ Implemente el instrumento `Seno` tomando como modelo el `InstrumentDumb`. La se�
 mediante búsqueda de los valores en una tabla.
 
 - Incluya, a continuación, el código del fichero `seno.cpp` con los métodos de la clase Seno.
+
+`seno.h`
+```cpp
+
+#include "wavfile_mono.h"
+
+namespace upc {
+  class Seno: public upc::Instrument {
+    EnvelopeADSR adsr;
+    float phase;
+    float step1, step2;
+    float nota;
+    int N;
+    unsigned int index;
+	float A;
+    std::vector<float> tbl;
+  public:
+    Seno(const std::string &param = "");
+    void command(long cmd, long note, long velocity=1); 
+    const std::vector<float> & synthesize();
+    bool is_active() const {return bActive;} 
+  };
+}
+
+#endif
+  ```
+`seno.cpp`
+
+  ```cpp
+  Seno::Seno(const std::string &param) 
+  : adsr(SamplingRate, param) {
+  bActive = false;
+  x.resize(BSIZE);
+
+  /*
+    You can use the class keyvalue to parse "param" and configure your instrument.
+    Take a Look at keyvalue.h    
+  */
+  KeyValue kv(param);
+  
+  /*
+  /////////////////////////
+  //     TAULA NORMAL    //
+  /////////////////////////
+
+  if (!kv.to_int("N",N))
+    N = 40; //default value
+  
+  //Create a tbl with one period of a sinusoidal wave
+  tbl.resize(N);
+  float fase = 0;
+  phase = 0;
+  index = 0;
+  step1 = 2 * M_PI /(float) N;
+  //index = 0;
+  for (int i=0; i < N ; ++i) {
+    tbl[i] = sin(fase);
+    fase += step1;
+  }
+  */
+
+  /////////////////////////
+  //     TAULA FITXER    //
+  /////////////////////////
+  std::string file_name = "period2.wav";
+  static string kv_null;
+  /*
+  if ((file_name = kv("guitar.wav")) == kv_null) {
+    cerr << "Error: no se ha encontrado el campo con el fichero de la señal para un instrumento FicTabla" << endl;
+    throw -1;
+  }
+  */
+  unsigned int fm;
+
+  if (readwav_mono(file_name, fm, tbl) < 0) {
+    
+    cerr << "Error: no se puede leer el fichero " << file_name << " para un instrumento FicTabla" << " (" << strerror(errno) << ")"<< endl;
+    throw -1;
+  }
+
+
+  N = tbl.size();
+  cout<<N<<endl;
+  phase = 0;
+  index = 0;
+  step1 = 2 * M_PI /(float) N;
+
+  
+}
+
+
+void Seno::command(long cmd, long note, long vel) {
+  if (cmd == 9) {		//'Key' pressed: attack begins
+    bActive = true;
+    adsr.start();
+    float f0 = 440.0 * pow(2 ,((float)note-69.0)/12.0);
+    cout<<f0<<endl;
+    nota = f0/SamplingRate;
+	  A = vel / 127.;
+    step2 = 2 * M_PI * nota;
+    cout<<nota<<", "<<step2/step1<<endl;
+    phase = 0;
+    index = 0;
+    resta = 0;
+  }
+  else if (cmd == 8) {	//'Key' released: sustain ends, release begins
+    adsr.stop();
+  }
+  else if (cmd == 0) {	//Sound extinguished without waiting for release to end
+    adsr.end();
+  }
+}
+
+
+const vector<float> & Seno::synthesize() {
+  if (not adsr.active()) {
+    x.assign(x.size(), 0);
+    bActive = false;
+    return x;
+  }
+  else if (not bActive)
+    return x;
+
+  for (unsigned int i=0; i<x.size(); ++i) {
+    
+    if(phase == (int)phase){
+      
+      x[i] = A*tbl[index]; 
+   
+    }else{
+
+      int index1 = (int)ceil(phase);
+      int index2 = (int)floor(phase);
+      float alpha1 = (float) index2 - phase;
+      float alpha2 = (float) phase - index1;
+
+      if(index2 == N){
+
+        index2 = 0;
+      }
+
+      x[i] = 0.8*(tbl[index1]*(alpha1) + tbl[index2]*(alpha2));
+
+    }
+
+    resta++;
+    phase += step2/step1;
+    index = phase;
+    cout<<x[i]<<","<<phase<<endl;
+
+    if(index >= N){
+      phase = step2/step1;
+      index = 0;
+      //phase -= resta*(step2/step1);
+    }
+    //while (phase > 2*M_PI) phase -= 2*M_PI; 
+  } 
+  adsr(x); //apply envelope to x and update internal status of ADSR
+
+  return x;
+}
+
+
+  ```
+
 - Explique qué método se ha seguido para asignar un valor a la señal a partir de los contenidos en la tabla,
   e incluya una gráfica en la que se vean claramente (use pelotitas en lugar de líneas) los valores de la
   tabla y los de la señal generada.
+
+Hemos utilizado interpolación lineal para asignar un valor a la señal a partir de los contenidos de la tabla. El resultado es el siguiente:
+<img src="img/senoAndDumb.png" width = "901" align="center">
+<img src="img/senoAndDumbPeriode.png" width = "901" align="center">
+
 - Si ha implementado la síntesis por tabla almacenada en fichero externo, incluya a continuación el código
   del método `command()`.
+
+El metodo comand se puede ver en el código insertado anteriormente. No se ha modificado para implementar la síntesis por tabla, solo se ha modificado el constructor para que lea un fichero WAVE que contiene un período de una señal musical producida por una guitarra. El resultado, comparado con la señal generada por InstrumentDumb, es el siguiente:
+
+<img src="img/guitar.png" width = "901" align="center">
 
 ### Efectos sonoros.
 
