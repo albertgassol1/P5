@@ -265,7 +265,7 @@ El metodo comand se puede ver en el código insertado anteriormente. No se ha mo
   
   ##### Vibrato
   
-  <img src="img/vibrato.png" width = "503" align="center">
+  <img src="img/vibrrato.png" width = "1417" align="center">
   <img src="img/vibratoAmpliat.png" width = "1855" align="center">
   
 - Si ha generado algún efecto por su cuenta, explique en qué consiste, cómo lo ha implementado y qué
