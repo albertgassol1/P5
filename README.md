@@ -260,8 +260,8 @@ El metodo comand se puede ver en el código insertado anteriormente. No se ha mo
   
   ##### Trémolo
  
-  <img src="img/tremolo.png" width = "747" align="center">
-  <img src="img/tremoloAmpliat.png" width = "747" align="center">
+  <img src="img/tremolo.png" width = "503" align="center">
+  <img src="img/tremoloAmpliat.png" width = "1855" align="center">
   
   ##### Vibrato
   
