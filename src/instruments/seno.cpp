@@ -21,7 +21,7 @@ Seno::Seno(const std::string &param)
   */
   KeyValue kv(param);
   
-  /*
+  
   /////////////////////////
   //     TAULA NORMAL    //
   /////////////////////////
@@ -40,8 +40,8 @@ Seno::Seno(const std::string &param)
     tbl[i] = sin(fase);
     fase += step1;
   }
-  */
-
+  
+  /*
   /////////////////////////
   //     TAULA FITXER    //
   /////////////////////////
@@ -52,7 +52,7 @@ Seno::Seno(const std::string &param)
     cerr << "Error: no se ha encontrado el campo con el fichero de la señal para un instrumento FicTabla" << endl;
     throw -1;
   }
-  */
+  
   unsigned int fm;
 
   if (readwav_mono(file_name, fm, tbl) < 0) {
@@ -68,7 +68,7 @@ Seno::Seno(const std::string &param)
   index = 0;
   step1 = 2 * M_PI /(float) N;
 
-  
+  */
 }
 
 
