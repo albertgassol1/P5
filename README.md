@@ -260,10 +260,13 @@ El metodo comand se puede ver en el código insertado anteriormente. No se ha mo
   
   ##### Trémolo
  
-  <img src="img/tremolo.png" width = "747" align="center">
-  <img src="img/tremoloAmpliat.png" width = "747" align="center">
+  <img src="img/tremolo.png" width = "503" align="center">
+  <img src="img/tremoloAmpliat.png" width = "1855" align="center">
   
   ##### Vibrato
+  
+  <img src="img/vibrato.png" width = "503" align="center">
+  <img src="img/vibratoAmpliat.png" width = "1855" align="center">
   
 - Si ha generado algún efecto por su cuenta, explique en qué consiste, cómo lo ha implementado y qué
   resultado ha producido. Incluya, en el directorio `work/ejemplos`, los ficheros necesarios para apreciar
