@@ -309,8 +309,8 @@ void Distortion::operator()(std::vector<float> &x){
 
 El resultado obtendido es una distorsión que, a nivel auditivo, asemeja una vibración.
 
- <work/ejemplos src="work/ejemplos/distortion.png" width = "1417" align="center">
- <work/ejemplos src="work/ejemplos/distortionAmpliat.png" width = "1855" align="center">
+ <img src="work/ejemplos/distortion.png" width = "1417" align="center">
+ <img src="work/ejemplos/distortionAmpliat.png" width = "1855" align="center">
 
 El comando para obtener los resultados es:
 
