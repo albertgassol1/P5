@@ -309,8 +309,15 @@ void Distortion::operator()(std::vector<float> &x){
 
 El resultado obtendido es una distorsión que, a nivel auditivo, asemeja una vibración.
 
- <work/ejemplos src="img/distortion.png" width = "1417" align="center">
- <work/ejemplos src="img/distortionAmpliat.png" width = "1855" align="center">
+ <work/ejemplos src="work/ejemplos/distortion.png" width = "1417" align="center">
+ <work/ejemplos src="work/ejemplos/distortionAmpliat.png" width = "1855" align="center">
+
+El comando para obtener los resultados es:
+
+```
+synth work/seno.orc work/ejemplos/distortion.sco work/ejemplos/distortion.wav -e work/effects.orc 
+
+```
 
 ### Síntesis FM.
 
