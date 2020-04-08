@@ -5,11 +5,17 @@
 #include <string>
 #include "instrument.h"
 #include "envelope_adsr.h"
+#include "wavfile_mono.h"
 
 namespace upc {
   class Seno: public upc::Instrument {
     EnvelopeADSR adsr;
+    float phase;
+    float step1, step2;
+    float nota;
+    int N;
     unsigned int index;
+    unsigned int resta;
 	float A;
     std::vector<float> tbl;
   public:
