@@ -126,10 +126,15 @@ const vector<float> & InstrumentFM::synthesize() {
       float alpha1 = (float) index2 - phase;
       float alpha2 = (float) phase - index1;
 
-      if(index2 == N){
+      if(index2 >= N){
 
-        index2 = 0;
+        index2 = index2-N;
       }
+      if(index1 >= N){
+
+        index1 = index2-N;
+      }
+
 
       x[i] = 0.8*(tbl[index1]*(alpha1) + tbl[index2]*(alpha2));
 
@@ -142,7 +147,7 @@ const vector<float> & InstrumentFM::synthesize() {
 
     if(index >= N){
       phase = step2/step1;
-      index = 0;
+      index = index - N;
       //phase -= resta*(step2/step1);
     }
     //while (phase > 2*M_PI) phase -= 2*M_PI; 
