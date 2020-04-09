@@ -85,7 +85,7 @@ namespace upc {
     float nota;
     int N;
     unsigned int index;
-	float A;
+    float A;
     std::vector<float> tbl;
   public:
     Seno(const std::string &param = "");
