@@ -125,13 +125,13 @@ namespace upc {
   phase = 0;
   index = 0;
   step1 = 2 * M_PI /(float) N;
-
+  //index = 0;
   for (int i=0; i < N ; ++i) {
     tbl[i] = sin(fase);
     fase += step1;
   }
   */
-
+  
   /////////////////////////
   //     TAULA FITXER    //
   /////////////////////////
@@ -151,11 +151,12 @@ namespace upc {
     throw -1;
   }
 
+
   N = tbl.size();
-  cout<<N<<endl;
   phase = 0;
   index = 0;
   step1 = 2 * M_PI /(float) N;
+
   
 }
 
@@ -165,11 +166,9 @@ void Seno::command(long cmd, long note, long vel) {
     bActive = true;
     adsr.start();
     float f0 = 440.0 * pow(2 ,((float)note-69.0)/12.0);
-    cout<<f0<<endl;
     nota = f0/SamplingRate;
     A = vel / 127.;
     step2 = 2 * M_PI * nota;
-    cout<<nota<<", "<<step2/step1<<endl;
     phase = 0;
     index = 0;
   }
@@ -195,7 +194,7 @@ const vector<float> & Seno::synthesize() {
     
     if(phase == (int)phase){
       
-      x[i] = A*tbl[index]; 
+      x[i] = 0.15*A*tbl[index]; 
    
     }else{
 
@@ -204,23 +203,24 @@ const vector<float> & Seno::synthesize() {
       float alpha1 = (float) index2 - phase;
       float alpha2 = (float) phase - index1;
 
-      if(index2 == N){
+      while(index2 >= N){
 
-        index2 = 0;
+        index2 -= N;
+      }
+      while(index1 >= N){
+
+        index1 -= N;
       }
 
-      x[i] = 0.8*(tbl[index1]*(alpha1) + tbl[index2]*(alpha2));
+      x[i] = 0.15*A*(tbl[index1]*(alpha1) + tbl[index2]*(alpha2));
 
     }
-
-    resta++;
     phase += step2/step1;
     index = phase;
-    cout<<x[i]<<","<<phase<<endl;
 
-    if(index >= N){
+    while(index >= N){
       phase = step2/step1;
-      index = 0;
+      index -= N;
     }
   } 
   adsr(x); //apply envelope to x and update internal status of ADSR
@@ -266,7 +266,7 @@ En la gráfica se aprecia claramente la frecuencia del trémolo, que genera una 
   <img src="img/vibrrato.png" width = "1417" align="center">
   <img src="img/vibratoAmpliat.png" width = "1855" align="center">
 
-La frecuencia y el índice de modulación se aprecian en las "irregularidades" de la señal sinusoidal. Depeniendo de estos parametros la señal va cambiando el pitch con una cierta frecuencia (fm) y profundidad (I).
+La frecuencia y el índice de modulación se aprecian en las "irregularidades" de la señal sinusoidal. Dependiendo de estos parámetros, la señal va cambiando el pitch con una cierta frecuencia (fm) y profundidad (I).
   
 - Si ha generado algún efecto por su cuenta, explique en qué consiste, cómo lo ha implementado y qué
   resultado ha producido. Incluya, en el directorio `work/ejemplos`, los ficheros necesarios para apreciar

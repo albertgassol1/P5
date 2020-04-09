@@ -76,11 +76,9 @@ void Seno::command(long cmd, long note, long vel) {
     bActive = true;
     adsr.start();
     float f0 = 440.0 * pow(2 ,((float)note-69.0)/12.0);
-    //cout<<f0<<endl;
     nota = f0/SamplingRate;
 	  A = vel / 127.;
     step2 = 2 * M_PI * nota;
-    //cout<<nota<<", "<<step2/step1<<endl;
     phase = 0;
     index = 0;
   }
@@ -129,14 +127,11 @@ const vector<float> & Seno::synthesize() {
     }
     phase += step2/step1;
     index = phase;
-    //cout<<x[i]<<","<<phase<<endl;
 
     while(index >= N){
       phase = step2/step1;
       index -= N;
-      //phase -= resta*(step2/step1);
     }
-    //while (phase > 2*M_PI) phase -= 2*M_PI; 
   } 
   adsr(x); //apply envelope to x and update internal status of ADSR
 
