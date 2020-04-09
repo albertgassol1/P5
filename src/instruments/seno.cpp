@@ -21,7 +21,7 @@ Seno::Seno(const std::string &param)
   */
   KeyValue kv(param);
   
-  
+  /*
   /////////////////////////
   //     TAULA NORMAL    //
   /////////////////////////
@@ -40,8 +40,8 @@ Seno::Seno(const std::string &param)
     tbl[i] = sin(fase);
     fase += step1;
   }
+  */
   
-  /*
   /////////////////////////
   //     TAULA FITXER    //
   /////////////////////////
@@ -52,7 +52,7 @@ Seno::Seno(const std::string &param)
     cerr << "Error: no se ha encontrado el campo con el fichero de la señal para un instrumento FicTabla" << endl;
     throw -1;
   }
-  
+  */
   unsigned int fm;
 
   if (readwav_mono(file_name, fm, tbl) < 0) {
@@ -63,12 +63,11 @@ Seno::Seno(const std::string &param)
 
 
   N = tbl.size();
-  cout<<N<<endl;
   phase = 0;
   index = 0;
   step1 = 2 * M_PI /(float) N;
 
-  */
+  
 }
 
 
@@ -107,7 +106,7 @@ const vector<float> & Seno::synthesize() {
     
     if(phase == (int)phase){
       
-      x[i] = A*tbl[index]; 
+      x[i] = 0.15*A*tbl[index]; 
    
     }else{
 
@@ -116,21 +115,25 @@ const vector<float> & Seno::synthesize() {
       float alpha1 = (float) index2 - phase;
       float alpha2 = (float) phase - index1;
 
-      if(index2 == N){
+      while(index2 >= N){
 
-        index2 = 0;
+        index2 -= N;
+      }
+      while(index1 >= N){
+
+        index1 -= N;
       }
 
-      x[i] = 0.8*(tbl[index1]*(alpha1) + tbl[index2]*(alpha2));
+      x[i] = 0.15*A*(tbl[index1]*(alpha1) + tbl[index2]*(alpha2));
 
     }
     phase += step2/step1;
     index = phase;
     //cout<<x[i]<<","<<phase<<endl;
 
-    if(index >= N){
+    while(index >= N){
       phase = step2/step1;
-      index = 0;
+      index -= N;
       //phase -= resta*(step2/step1);
     }
     //while (phase > 2*M_PI) phase -= 2*M_PI; 

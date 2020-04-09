@@ -19,12 +19,10 @@ int readwav_mono(const string &filename, unsigned int &sampling_freq, vector<flo
 
   sndfile_in = sf_open(filename.c_str(), SFM_READ, &sf_info);
   if (sndfile_in == 0){ //Error opening input file
-    std::cout<<1<<std::endl;
     return -1;
   }
 
   if (sf_info.channels  != 1){ //Only mono files supported!
-     std::cout<<2<<std::endl;
     return -2;
   }
    
@@ -34,13 +32,11 @@ int readwav_mono(const string &filename, unsigned int &sampling_freq, vector<flo
   if(sf_read_float(sndfile_in, x.data(), x.size()) != (signed) x.size()) {
     //Error reading data
     x.clear();
-    std::cout<<3<<std::endl;
     return -3;
   }
 
   sampling_freq = sf_info.samplerate;
   sf_close(sndfile_in);
-  std::cout<<0<<std::endl;
   return 0;
 }
 

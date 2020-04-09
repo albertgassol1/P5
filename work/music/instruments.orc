@@ -1,0 +1,2 @@
+2	InstrumentFM	ADSR_A=0.02; ADSR_D=0; ADSR_S=0.6; ADSR_R=0.05; N=40;	N1=1;	N2=5;	I=1.5;
+1	Seno	ADSR_A=0.02; ADSR_D=0.5; ADSR_S=0; ADSR_R=0.1; N=40;

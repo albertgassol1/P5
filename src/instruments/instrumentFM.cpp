@@ -42,7 +42,7 @@ InstrumentFM::InstrumentFM(const std::string &param)
   float fase = 0;
   phase = 0;
   index = 0;
-  step1 = 2 * M_PI /(float) N;
+  float step1 = 2 * M_PI /(float) N;
   //index = 0;
   for (int i=0; i < N ; ++i) {
     tbl[i] = sin(fase);
@@ -87,12 +87,12 @@ void InstrumentFM::command(long cmd, long note, long vel) {
     float fc = 440.0 * pow(2 ,((float)note-69.0)/12.0);
     //cout<<fc<<endl;
     nota = fc/SamplingRate;
-    fm = (N2/N1) * fc;
+    fm = (N2/N1) * nota;
 	A = vel / 127.;
-    count = 0;
-    step2 = 2 * M_PI * nota;
+    substep1 = 2 * M_PI * nota;
+    substep2 = 2 * M_PI * fm;
     //cout<<nota<<", "<<step2/step1<<endl;
-    phase = 0;
+    phase = phase1 = phase2 = 0;
     index = 0;
   }
   else if (cmd == 8) {	//'Key' released: sustain ends, release begins
@@ -115,42 +115,19 @@ const vector<float> & InstrumentFM::synthesize() {
 
   for (unsigned int i=0; i<x.size(); ++i) {
     
-    if(phase == (int)phase){
-      
-      x[i] = A*tbl[index]; 
-   
-    }else{
 
-      int index1 = (int)ceil(phase);
-      int index2 = (int)floor(phase);
-      float alpha1 = (float) index2 - phase;
-      float alpha2 = (float) phase - index1;
-
-      if(index2 >= N){
-
-        index2 = index2-N;
-      }
-      if(index1 >= N){
-
-        index1 = index2-N;
-      }
-
-
-      x[i] = 0.8*(tbl[index1]*(alpha1) + tbl[index2]*(alpha2));
-
+   x[i] = 0.85*A*sin(phase1 + I*sin(phase2));
+   phase1 += substep1;
+    
+    while(phase1 >= 2*M_PI){
+        phase1 -= 2*M_PI;
     }
-    count++;
-    step2 = 2*M_PI*(nota + I*(fm/SamplingRate)*cos(2*M_PI*(fm/SamplingRate)*count));
-    phase += step2/step1;
-    index = phase;
-    //cout<<x[i]<<","<<phase<<endl;
 
-    if(index >= N){
-      phase = step2/step1;
-      index = index - N;
-      //phase -= resta*(step2/step1);
+    phase2 += substep2;
+
+    while(phase2 >= 2*M_PI){
+        phase2 -= 2*M_PI;
     }
-    //while (phase > 2*M_PI) phase -= 2*M_PI; 
   } 
   adsr(x); //apply envelope to x and update internal status of ADSR
 
