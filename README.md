@@ -239,6 +239,8 @@ Hemos utilizado interpolación lineal para asignar un valor a la señal a partir
 <img src="img/senoAndDumb.png" width = "901" align="center">
 <img src="img/senoAndDumbPeriode.png" width = "901" align="center">
 
+**Todas las gráficas (excepto las de wavesurfer) se han realizado con el script graphics.py, que se encuentra en el directorio works**
+
 - Si ha implementado la síntesis por tabla almacenada en fichero externo, incluya a continuación el código
   del método `command()`.
 
@@ -258,10 +260,13 @@ El metodo comand se puede ver en el código insertado anteriormente. No se ha mo
   <img src="img/tremolo.png" width = "503" align="center">
   <img src="img/tremoloAmpliat.png" width = "1855" align="center">
   
+En la gráfica se aprecia claramente la frecuencia del trémolo, que genera una envolvente sobre la señal sinusoidal.
   ##### Vibrato
   
   <img src="img/vibrrato.png" width = "1417" align="center">
   <img src="img/vibratoAmpliat.png" width = "1855" align="center">
+
+La frecuencia y el índice de modulación se aprecian en las "irregularidades" de la señal sinusoidal. Depeniendo de estos parametros la señal va cambiando el pitch con una cierta frecuencia (fm) y profundidad (I).
   
 - Si ha generado algún efecto por su cuenta, explique en qué consiste, cómo lo ha implementado y qué
   resultado ha producido. Incluya, en el directorio `work/ejemplos`, los ficheros necesarios para apreciar
