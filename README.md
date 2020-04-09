@@ -327,7 +327,7 @@ deberá venir expresado en semitonos.
 <img src="img/FM.png" width = "1417" align="center">
 <img src="img/FMAmpliat.png" width = "1855" align="center">
 
-El efecto de la I, N1 y N2 se nota en la profundidad y frecuencia de los picos que aparecen y no son propios de la señal sinusoidal pura. 
+El efecto de la I, N1 y N2 se nota en la profundidad y frecuencia de los picos que aparecen y no son propios de la señal sinusoidal pura. En el caso de las gráficas: I = 24, N1 = 1, N2 = 5. Se han exagerado los valores para poder observar mejor el efecto en las gráficas. 
 
 - Use el instrumento para generar un sonido tipo clarinete y otro tipo campana. Tome los parámetros del
   sonido (N1, N2 e I) y de la envolvente ADSR del citado artículo. Con estos sonidos, genere sendas escalas
