@@ -125,7 +125,7 @@ namespace upc {
   phase = 0;
   index = 0;
   step1 = 2 * M_PI /(float) N;
-  //index = 0;
+
   for (int i=0; i < N ; ++i) {
     tbl[i] = sin(fase);
     fase += step1;
@@ -151,13 +151,11 @@ namespace upc {
     throw -1;
   }
 
-
   N = tbl.size();
   cout<<N<<endl;
   phase = 0;
   index = 0;
   step1 = 2 * M_PI /(float) N;
-
   
 }
 
@@ -169,12 +167,11 @@ void Seno::command(long cmd, long note, long vel) {
     float f0 = 440.0 * pow(2 ,((float)note-69.0)/12.0);
     cout<<f0<<endl;
     nota = f0/SamplingRate;
-	  A = vel / 127.;
+    A = vel / 127.;
     step2 = 2 * M_PI * nota;
     cout<<nota<<", "<<step2/step1<<endl;
     phase = 0;
     index = 0;
-    resta = 0;
   }
   else if (cmd == 8) {	//'Key' released: sustain ends, release begins
     adsr.stop();
@@ -224,9 +221,7 @@ const vector<float> & Seno::synthesize() {
     if(index >= N){
       phase = step2/step1;
       index = 0;
-      //phase -= resta*(step2/step1);
     }
-    //while (phase > 2*M_PI) phase -= 2*M_PI; 
   } 
   adsr(x); //apply envelope to x and update internal status of ADSR
 
