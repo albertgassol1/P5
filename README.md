@@ -323,6 +323,12 @@ deberá venir expresado en semitonos.
 
 - Use el instrumento para generar un vibrato de *parámetros razonables* e incluya una gráfica en la que se
   vea, claramente, la correspondencia entre los valores `N1`, `N2` e `I` con la señal obtenida.
+
+<img src="img/FM.png" width = "1417" align="center">
+<img src="img/FMAmpliat.png" width = "1855" align="center">
+
+El efecto de la I, N1 y N2 se nota en la profundidad y frecuencia de los picos que aparecen y no son propios de la señal sinusoidal pura. 
+
 - Use el instrumento para generar un sonido tipo clarinete y otro tipo campana. Tome los parámetros del
   sonido (N1, N2 e I) y de la envolvente ADSR del citado artículo. Con estos sonidos, genere sendas escalas
   diatónicas (fichero `doremi.sco`) y ponga el resultado en los ficheros `work/doremi/clarinete.wav` y
